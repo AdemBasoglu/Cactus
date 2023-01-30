@@ -19,6 +19,7 @@ public class C04_Put_ResponseBilgileriAssertion {
                 "id":70
                 }
         donen Response’un,
+
             status code’unun 200,
             ve content type’inin application/json; charset=utf-8,
             ve Server isimli Header’in degerinin cloudflare,
@@ -71,9 +72,6 @@ public class C04_Put_ResponseBilgileriAssertion {
                 statusLine("HTTP/1.1 200 OK");
     }
 }
-    git init
-    git add README.md
-        git commit -m "first commit"
-        git branch -M main
-        git remote add origin https://github.com/aysezen/T105_APICalismalari.git
-        git push -u origin main
+    
+
+
