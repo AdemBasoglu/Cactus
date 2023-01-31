@@ -4,9 +4,11 @@ import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.json.JSONObject;
+import org.junit.Assert;
 import org.junit.Test;
 
 import static io.restassured.RestAssured.given;
+import static org.junit.Assert.assertEquals;
 
 public class C12_Post_ExpectedDataVeJsonPathIleAssertion {
     /*
@@ -65,7 +67,7 @@ public class C12_Post_ExpectedDataVeJsonPathIleAssertion {
         reqBody.put("bookingdates" ,innerBody);
         reqBody.put("additionalneeds" , "wi-fi");
 
-        System.out.println("reqBody = " + reqBody);
+        // System.out.println("reqBody = " + reqBody);
 
         // 2 - Expected Data hazirla
 
@@ -74,7 +76,7 @@ public class C12_Post_ExpectedDataVeJsonPathIleAssertion {
         expBody.put("bookingid",24);
         expBody.put("booking",reqBody);
 
-        System.out.println("expBody = " + expBody);
+        // System.out.println("expBody = " + expBody);
 
         // 3 - Response'i kaydet
 
@@ -84,15 +86,21 @@ public class C12_Post_ExpectedDataVeJsonPathIleAssertion {
                                     body(reqBody.toString()).
                                     post(url);
 
-        System.out.println("response = ");
-        response.prettyPrint();
+        // System.out.println("response = ");
+        // response.prettyPrint();
 
         // 4 - Assertion
 
         JsonPath resJsonPath = response.jsonPath();
 
-
-
+        assertEquals(expBody.getJSONObject("booking").get("firstname"),resJsonPath.get("booking.firstname"));
+        assertEquals(expBody.getJSONObject("booking").get("lastname"),resJsonPath.get("booking.lastname"));
+        assertEquals(expBody.getJSONObject("booking").get("additionalneeds"),resJsonPath.get("booking.additionalneeds"));
+        assertEquals(expBody.getJSONObject("booking").get("totalprice"),resJsonPath.get("booking.totalprice"));
+        assertEquals(expBody.getJSONObject("booking").get("depositpaid"),resJsonPath.get("booking.depositpaid"));
+        assertEquals(expBody.getJSONObject("booking").getJSONObject("bookingdates").get("checkin"),
+                    resJsonPath.get("booking.bookingdates.checkin"));
+        assertEquals(expBody.getJSONObject("booking").getJSONObject("bookingdates").get("checkout"),
+                     resJsonPath.get("booking.bookingdates.checkout"));
     }
-
 }
