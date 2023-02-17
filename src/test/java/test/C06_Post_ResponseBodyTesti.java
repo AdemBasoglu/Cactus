@@ -36,38 +36,35 @@ public class C06_Post_ResponseBodyTesti {
 
         // 1 - URL ve Body hazirla
 
-        String url = "https://jsonplaceholder.typicode.com/posts";
+       String url = "https://jsonplaceholder.typicode.com/posts";
 
-        JSONObject reqBody = new JSONObject();
+       JSONObject rqbody = new JSONObject();
+       rqbody.put("title","API").put("body","API ogrenmek ne guzel").put("userId",10);
+        System.out.println("rqbody = " + rqbody);
 
-        reqBody.put( "title","API");
-        reqBody.put( "body","API ogrenmek ne guzel");
-        reqBody.put( "userId",10);
-
-        System.out.println(reqBody);
 
         // 2 - Expected Data hazirla
 
         // 3 - Response'i kaydet
-
-        Response response = given().
-                                    contentType(ContentType.JSON).
-                            when().
-                                    body(reqBody.toString()).
-                                    post(url);
-
+        Response response =given().
+                    contentType(ContentType.JSON).
+                when().
+                    body(rqbody.toString()).
+                    post(url);
         response.prettyPrint();
 
-        // 4 - Assertion
 
-        response.
-                then().
-                assertThat().
-                statusCode(201).
-                contentType("application/json").
-                body("title", equalTo("API")).
-                body("userId",lessThan(100)).
-                body("body",Matchers.containsString("API"));
+        // 4 - Assertion
+            response.
+                    then().
+                    assertThat().
+                    statusCode(201).
+                    contentType("application/json").
+                    body("title", Matchers.equalTo("API"),
+                            "userId", Matchers.lessThan(100),
+                            "body", Matchers.containsString("API "));
+
+
 
     }
 

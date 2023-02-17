@@ -27,7 +27,7 @@ public class C04_Put_ResponseBilgileriAssertion {
       */
 
     @Test
-    public void put01(){
+    public void put01() {
 
         // 1 - Request URL ve Body hazirla
 
@@ -42,34 +42,34 @@ public class C04_Put_ResponseBilgileriAssertion {
                 }
          */
         JSONObject reqBody = new JSONObject();
-
-        reqBody.put("title","Ahmet");
-        reqBody.put("body","Merhaba");
-        reqBody.put("userId",10);
-        reqBody.put("id",70);
-
-        System.out.println(reqBody);
+        reqBody.put("title", "Ahmet");
+        reqBody.put("body", "Merhaba");
+        reqBody.put("userId", 10);
+        reqBody.put("id", 70);
+        System.out.println("reqBody = " + reqBody);
 
         // 2 - Soruda istendiyse Expected Data hazirla
 
-        // 3 - Response'i kaydet
 
+        // 3 - Response'i kaydet
         Response response = given().
-                                    contentType(ContentType.JSON).
-                            when().
-                                    body(reqBody.toString()).
-                                    put(url);
+                    contentType(ContentType.JSON).
+                when().
+                    body(reqBody.toString()).
+                    put(url);
         response.prettyPrint();
 
-        // 4 - Assertion
 
-        response.
-                then().
-                assertThat().
-                statusCode(200).
-                contentType("application/json; charset=utf-8").
-                header("Server","cloudflare").
-                statusLine("HTTP/1.1 200 OK");
+
+        // 4 - Assertion
+response.
+        then().
+        assertThat().
+        statusCode(200).
+        contentType("application/json; charset=utf-8").
+        header("Server", "cloudflare").
+        statusLine("HTTP/1.1 200 OK");
+
     }
 }
     

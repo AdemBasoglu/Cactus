@@ -7,7 +7,6 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.json.JSONObject;
 import org.junit.Test;
-import testData.TestDataHerokuApp;
 import testData.TestDataHerokuapp;
 
 import static io.restassured.RestAssured.given;
@@ -73,6 +72,7 @@ public class C21_Post_TestDataKullanimi extends HerokuappBaseUrl {
                             when().
                                 body(reqBody.toString()).
                                 post("/{pp1}");
+
         // 4 - Assertion
 
         JsonPath respJP = response.jsonPath();
